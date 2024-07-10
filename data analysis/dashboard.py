@@ -39,7 +39,7 @@ with st.spinner("loading data...."):
 
 # creating the interface
 c1,c2,c3 = st.columns(3)
-c1.title("imigration Analysis")
+c1.title("immigration Analysis")
 c2.header("summary of data")
 total_row = df.shape[0]
 total_imig =df.total.sum()
@@ -50,7 +50,7 @@ c2.metric("totalyear",len(years))
 c2.metric("total imigration",f"{total_imig/1000000:.2f}M")
 c2.metric("max imigration",f"{max_imig/1000000:.2f}M",
           f"{max_imig_country}")
-c3.header("top 10 country")
+c3.header("Top 10 country")
 top_10 =df.head(10)
 c3.dataframe(top_10,use_container_width=True)
 fig = px.bar(top_10,x=top_10.index, y='total')
@@ -73,14 +73,14 @@ c2.metric(f"max imigration for{country}",
 c1, c2 =st.columns(2)
 c1.plotly_chart(fig2,use_container_width=True)
 c2.plotly_chart(fig2,use_container_width=True)
-st.header("continent wise analysis")
+st.header("Continent wise analysis")
 c1,c2,c3 = st.columns(3)
 continents =df['continent'].unique().tolist()
 cdf =df.groupby('continent')[years].sum()
 cdf['total']=cdf.sum(axis=1)
 c1.dataframe(cdf,use_container_width=True)
-figcontinent =px.bar(cdf, x=cdf.index,y ='total',
-                     title="total imigration by continent")
+figcontinent =px.bar(cdf, x=cdf.index, y ='total',
+                         title="Total imigration by continent")
 c2.plotly_chart(figcontinent,use_container_width=True)
 
 figMap = px.choropleth(df,
@@ -90,5 +90,5 @@ figMap = px.choropleth(df,
                        title='World map',
                        projection='natural earth',
                        width=1000,height=700,
-                       template='plotly_dark',)
+                       template='plotly',)
 st.plotly_chart(figMap,use_container_width=True)
